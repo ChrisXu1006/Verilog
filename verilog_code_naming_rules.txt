@@ -1,0 +1,7 @@
+// This document is used to define Rui's verilog coding convention
+
+1. clocks/resets
+  a). clock name - <prefix>clk, for example: n1clk, i2clk. Normally the <prefix> is defined in each project
+  b). reset name
+     (1) active low reset - <prefix>rst_, for example: n1rst_, i2rst_. The <prefix> of reset should be consistent with the clock's <prefix>
+     (2) active high reset - <prefix>reset_, for example: n1reset, i2reset. The <prefix> of reset should be consistent with the clock's <prefix>
