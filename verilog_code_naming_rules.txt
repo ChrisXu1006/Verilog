@@ -5,3 +5,41 @@
   b). reset name
      (1) active low reset - <prefix>rst_, for example: n1rst_, i2rst_. The <prefix> of reset should be consistent with the clock's <prefix>
      (2) active high reset - <prefix>reset_, for example: n1reset, i2reset. The <prefix> of reset should be consistent with the clock's <prefix>
+
+
+
+2. interfaces 
+  a). if the block is used in clock crossing domain case, each signal should be started with clock name. For example, n1xxx
+  b). the second part with the format <source>2<destination>
+      (1) when it is the input, the <source> is the external block short name, while the <destination> is the block itself
+      (2) when it is the output, the <source> is the block itself while the <destination> is the external block short name
+      (3) if the external block is unknown (for example, modular design), please use xxx to present common case
+      (4) for example: xxx2me(input), me2xxx(output)
+  c). the third part is the normal signal name to present the usage of the signal
+  d). so the interface format will be <clock_name>(if it is CDC block)_<source>2<destination>_<real_signal_name>
+
+
+3. flow control
+  a) valid/ready protocol: *vld/*rdy
+  b) credit interface: *flit/*cred
+
+4. normal storage block interface
+  a) FIFO - *fifo
+      (1) write side: *fifo_push_vld, *fifo_push_data
+      (2) read side:  *fifo_pop_vld,  *fifo_pop_data
+
+  b) SRAM - *sram
+      (1) write side: *sram_wr_vld, *sram_wr_addr, *sram_wr_data
+      (2) read side:  *sram_rd_vld, *sram_rd_addr, *sram_rd_data
+
+5 sequential logic
+   a) register/ff signal: <signal_name>_r, for example, name_r
+   b) value with n clock cycles earlier than register value: <signal_name>_e<n>. For example, name_e2 (meaning that name_e2 is 2 clock cycles earlier than name_r)
+   c) value with n clock cycles delayed than register value: <signal_name>_d<n>. For example, name_d2 (meaning that name_d2 is 2 clock cycles later than name_r)
+
+
+6 combination logic
+   a) arbiter - *arb
+   b) request - *req
+   c) response - *resp
+
